@@ -1,21 +1,7 @@
 class User < ApplicationRecord
     has_many :therapists
-    has_secure_password
-    
-    def password=(new_password)
-        salt = BCrypt::Engine::generate_salt
-        hashed = BCrypt::Engine::hash_secret(new_password, salt) self.password_digest = salt + hashed
-    end
-
-    def authenticate(password)
-        salt = password_digest[0..28]
-
-        hashed = BCrypt::Engine::hash_secret(password, salt) 
-        return nil unless (salt + hashed) == self.password_digest
-    end
-
-    private 
-    def password_hash(input)
-        input.bytes.reduce(:+)
-    end
+    has_many :services, through: :therapists
+    has_secure_password 
+    validates_presence_of :username
+    validates_uniqueness_of :username
 end

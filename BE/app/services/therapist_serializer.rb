@@ -9,6 +9,7 @@ end
 def to_serialized_json
     @therapist.to_json(
         :include => {
+            :user => {:only => [:username]},
             :services => {:only => [:name, :description ]},
             :specialties => {:only => [:title, :info ]}
         }
