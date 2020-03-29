@@ -23,9 +23,18 @@ class TherapistController < ApplicationController
   end
 
   def update
-    therapist = Therapist.find(params['id'])
-    therapist.update(therapist_params)
-    render json: therapist
+      token = request.headers[:Authorization].split(' ')[1]
+
+      decoded_token = JWT.decode(token, 'secret', true, { algorithm: 'HS256'})
+
+      user_id = decoded_token[0]['user_id']
+
+      user = User.find(user_id)
+
+      therapist = Therapist.find_by(user: user)
+
+      therapist.update(therapist_params)
+      render json: therapist
   end
 
  

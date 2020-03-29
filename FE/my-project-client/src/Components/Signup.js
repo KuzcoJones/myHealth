@@ -131,6 +131,10 @@ class Signup extends React.Component{
         
     }
 
+    goLogin = () => {
+        this.props.history.push('/')
+    }
+
 
     render(){
             
@@ -162,6 +166,7 @@ class Signup extends React.Component{
                
                 
                 </form>
+                <button onClick={this.goLogin} >Log in</button>
             </div>
         )
     }

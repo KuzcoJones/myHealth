@@ -44,6 +44,10 @@ class Login extends React.Component{
 
     }
 
+    goSignUp = () => {
+        this.props.history.push('/signup')
+    }
+
 
 
 
@@ -67,6 +71,8 @@ class Login extends React.Component{
 
                     <input type="submit" value="Login"></input>
                 </form>
+
+                <button onClick={this.goSignUp}>Signup</button>
             </div>
         )
     }

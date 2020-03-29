@@ -43,7 +43,7 @@ class App extends React.Component{
   }
 
   therapistFetch = (formData) => {
-    console.log("============", this.state)
+    
     const token = localStorage.getItem('token')
     this.setState({
       ...this.state, therapistData: formData
@@ -51,14 +51,14 @@ class App extends React.Component{
     const therapistObj = {
       method: 'POST', 
       headers: {
-        'Authorization': `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(formData)
     }
       fetch('http://localhost:3000/therapist', therapistObj)
       .then( resp => resp.json())
-      .then( data => console.log(data))
+      .then( data => console.log("======fetch",data))
   }
 
 
@@ -74,11 +74,11 @@ class App extends React.Component{
             <Switch>
               <Route exact path="/" render={ (props) => <Login {...props} userInfo={this.userInfo}/> }/>
 
-              <Route exact path="/signup" render={(props) => <Signup therapistFetch={this.therapistFetch}userInfo={this.userInfo}/>}
+              <Route exact path="/signup" render={(props) => <Signup therapistFetch={this.therapistFetch} userInfo={this.userInfo}/>}
               />
 
               <Route exact path="/home" 
-              render={(props) => <Home  user={this.state.user
+              render={(props) => <Home {...props} userData={this.state.user
               }
               />
             
